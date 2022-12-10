@@ -1,0 +1,29 @@
+p {
+    margin: 0;
+}
+
+input {
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+
+input[type="text"] {
+    width: 400px;
+}
+
+#access_token {
+    width: 600px;
+}
+
+.option-title {
+    font-weight: 700;
+}
+
+.option-comment {
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+
+button {
+    margin: 10px 0;
+}

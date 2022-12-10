@@ -1,0 +1,38 @@
+{
+    "name": "Readymage deployment Info",
+    "description": "Readymage deployments additional info",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["storage", "activeTab", "scripting", "tabs", "identity", "identity.email"],
+    "host_permissions": [
+        "https://portal.readymage.com/*"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+        "16": "/images/get_started16.png",
+        "32": "/images/get_started32.png",
+        "48": "/images/get_started48.png",
+        "128": "/images/get_started128.png"
+        }
+    },
+    "icons": {
+        "16": "/images/get_started16.png",
+        "32": "/images/get_started32.png",
+        "48": "/images/get_started48.png",
+        "128": "/images/get_started128.png"
+    },
+    "options_page": "options.html",
+    "oauth2": {
+        "client_id": "1010411399917-ih2sse964555v9pfa25qfhsd98afupnn.apps.googleusercontent.com",
+        "scopes":[
+            "https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/spreadsheets.readonly"
+        ]
+    },
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7a4aRTDgR0lngo1mSgFiHcZEM24lbFaz2qt5Pn83EouXHTgGYChBY6vZF97iZr+T/BdH0GPcWkfvs0OH4/abSUYeKOh7mEuZpOuZ4lpxX+gpCJsb/9v/IspNwEWquziowJD2lJvsZGzaIicwaqnl6dUwwC17D2V3nBhOWu5+8P7fb1i0IwL/lwjgj0gg591oPP/fPP1yxxL43iUX6wRqnIJS2m5sRWHHRwIHrNBlhCa2SFsjixSUAuIv4nm3O2EMdJsxvK+VtgFeI9t/wbc9vcLbXL/mVietIgIWQdDmRvCUBhMzjOIE9pPpxoILnh0O4ugTambaFPK0W3WCcYd0twIDAQAB"
+}

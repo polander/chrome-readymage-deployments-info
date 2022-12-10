@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="options.css">
+    </head>
+    <body>
+        <div class="options">
+            <form id="options-form" class="options-form">
+                <label for="name">Your name:</label><br>
+                <input type="text" id="name" name="name"><br>
+
+                <label for="spreadsheet_id">Spreadsheet ID:</label><br>
+                <input type="text" id="spreadsheet_id" name="spreadsheet_id"><br>
+                <p class="option-comment">Google spreadsheet id is part of spreadsheet url</p>
+
+                <label for="ignored_fields">Ignored fields:</label><br>
+                <input type="text" id="ignored_fields" name="ignored_fields"><br>
+                <p class="option-comment">Custom fields to not display</p>
+
+                <button type="submit">Save Settings</button>
+
+                <p id="saved-notice" class="success" style="display: none; color: green;">Settings successfully saved!</p>
+            </form>
+        </div>
+    </body>
+    <script src="options.js"></script>
+</html>

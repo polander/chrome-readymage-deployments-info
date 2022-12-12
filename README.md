@@ -4,7 +4,7 @@ This Chrome add-on adds additional info to readymage deployments panel such as e
 
 Installation:
 
-- Clone repository.
+- Clone repository (or download ZIP if you don't have git installed).
 - Go to chrome://extensions/
 - Press 'Load unpacked' and select cloned repo
 - Open extensions dropdown right to the address bar and click on the extension

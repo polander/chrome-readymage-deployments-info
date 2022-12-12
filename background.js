@@ -17,7 +17,7 @@ chrome.runtime.onInstalled.addListener(() => {
         });
     });
 
-    chrome.identity.getAuthToken({ interactive: false }, (token) => {
+    chrome.identity.getAuthToken({ interactive: true }, (token) => {
         chrome.storage.local.set({ access_token: token });
     
         chrome.identity.getProfileUserInfo(({ email } = {}) => {
@@ -28,7 +28,7 @@ chrome.runtime.onInstalled.addListener(() => {
     });
 });
 
-chrome.identity.getAuthToken({ interactive: false }, (token) => {
+chrome.identity.getAuthToken({ interactive: true }, (token) => {
     chrome.storage.local.set({ access_token: token });
 });
 

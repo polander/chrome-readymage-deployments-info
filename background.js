@@ -28,6 +28,10 @@ chrome.runtime.onInstalled.addListener(() => {
     });
 });
 
+chrome.identity.getAuthToken({ interactive: false }, (token) => {
+    chrome.storage.local.set({ access_token: token });
+});
+
 function onReadymageTabActive() {
     const spreadsheetApiBase = "https://sheets.googleapis.com/v4/spreadsheets/";
     const dataPrefix = '__rmgdi_';
@@ -112,6 +116,7 @@ function onReadymageTabActive() {
                                 const th = document.createElement('th');
                                 th.innerText = field.charAt(0).toUpperCase() + field.slice(1);
                                 thead.appendChild(th);
+                                if (field === 'description') th.style.minWidth = '200px';
                             });
                         }
 
@@ -140,6 +145,7 @@ function onReadymageTabActive() {
                                     const td = document.createElement('td');
                                     td.innerText = value;
                                     tr.appendChild(td);
+                                    td.style.paddingRight = '20px';
                                 });
                             }
                         });

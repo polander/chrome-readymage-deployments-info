@@ -96,19 +96,18 @@ function onReadymageTabActive() {
                                     return { ...acc, [rowObject.date]: rowObject };
                                 }, {});
 
-                                setWindowData('deployments_info', { ...getWindowData('deployments_info'), [currentInstance]: records });
+                                setWindowData('deployments_info', { ...getWindowData('deployments_info'), [currentInstance]: { records, fields } });
                             });
                             return;
                         }
 
-                        if (!deploymentsInfo || !Object.values(deploymentsInfo).length) {
+                        if (!deploymentsInfo || !Object.values(deploymentsInfo.records).length) {
                             return;
                         }
 
                         const ths = thead.getElementsByTagName('th');
                         if (ths.length <= rmgDefaultFieldCount) {
-                            const fields = Object.keys(Object.values(deploymentsInfo)[0]);
-                            fields.forEach((field) => {
+                            deploymentsInfo.fields.forEach((field) => {
                                 if (ignoredFields.includes(field)) {
                                     return;
                                 }
@@ -130,12 +129,12 @@ function onReadymageTabActive() {
 
                             const date = new Date(tds[0].innerText);
                             let i = 0;
-                            while (i <= deploymentTimeMaxDelayInSeconds && !deploymentsInfo[date.toLocaleString()]) {
+                            while (i <= deploymentTimeMaxDelayInSeconds && !deploymentsInfo.records[date.toLocaleString()]) {
                                 date.setSeconds(date.getSeconds() - 1);
                                 i++;
                             }
  
-                            const record = deploymentsInfo[date.toLocaleString()];
+                            const record = deploymentsInfo.records[date.toLocaleString()];
 
                             if (record) {
                                 Object.entries(record).forEach(([key, value]) => {

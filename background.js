@@ -4,16 +4,19 @@ chrome.runtime.onInstalled.addListener(() => {
         'spreadsheet_id',
         'ignored_fields'
     ], (data) => {
+        const configVersion = 1;
         const {
             name = '',
             spreadsheet_id = '1fV4Zmg3TxcUPqwfOsF8AKc5C2qabjCZhpfLAnCKuVII',
-            ignored_fields = 'date'
+            ignored_fields = 'date',
+            config_version
         } = data;
 
         chrome.storage.sync.set({
             name,
             spreadsheet_id,
-            ignored_fields
+            ignored_fields: config_version === configVersion ? ignored_fields : (ignored_fields + ',utc'),
+            config_version: configVersion
         });
     });
 
@@ -58,6 +61,8 @@ function onReadymageTabActive() {
     }
 
     function refreshDeploymentsInfo(refetchInfo = false) {
+        if(chrome.runtime.id == undefined) return;
+
         chrome.storage.local.get(["access_token"], ({ access_token }) => {
             chrome.storage.sync.get(['spreadsheet_id', 'ignored_fields'], (data) => {
                 const { spreadsheet_id, ignored_fields } = data;
@@ -87,11 +92,20 @@ function onReadymageTabActive() {
                                     return;
                                 }
 
+                                const utc = (new Date().getTimezoneOffset() * -1) / 60;
                                 const [fields, ...rows] = values;
                                 const records = rows.reduce((acc, row) => {
                                     const rowObject = row.reduce((acc, value, idx) => {
                                         return { ...acc, [fields[idx]]: value };
                                     }, {});
+                                    const { utc: rowUtc = 0, date } = rowObject;
+
+                                    if (rowUtc !== utc) {
+                                        const diffHours = utc - rowUtc;
+                                        const utcDate = new Date(date);
+                                        utcDate.setHours(utcDate.getHours() + diffHours);
+                                        rowObject.date = utcDate.toLocaleString();
+                                    }
 
                                     return { ...acc, [rowObject.date]: rowObject };
                                 }, {});
@@ -157,6 +171,7 @@ function onReadymageTabActive() {
     function onDeploymentButtonClick() {
         const currentInstance = getCurrentInstance();
         const date = new Date().toLocaleString();
+        const utc = (new Date().getTimezoneOffset() * -1) / 60;
 
         chrome.storage.local.get(["access_token"], ({ access_token }) => {
             chrome.storage.sync.get(['spreadsheet_id', 'name'], (data) => {
@@ -164,7 +179,7 @@ function onReadymageTabActive() {
                 const description = prompt('Enter deployment description:');
                 const params = {
                     values: [
-                        [date, name, description]
+                        [date, name, description, utc]
                     ]
                 };
 

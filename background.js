@@ -41,7 +41,7 @@ function onReadymageTabActive() {
     const rmgDefaultFieldCount = 3;
     const tabNumber = 3;
     const refreshInterval = 1000;
-    const deploymentTimeMaxDelayInSeconds = 3;
+    const deploymentTimeMaxDelayInSeconds = 10;
     const deploymentButtonText = 'start deployment';
 
     function setWindowData(key, value) {
